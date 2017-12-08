@@ -1,0 +1,70 @@
+{
+  "开发指南": [{
+      "name": "giud",
+      "path": "/giud",
+      "desc": "介绍"
+    },
+    {
+      "name": "start",
+      "path": "/start",
+      "desc": "快速开始"
+    },
+    {
+      "name": "index",
+      "path": "/",
+      "type": "pages"
+    }
+  ],
+  "组件": [{
+      "desc": "基础组件",
+      "path": "/component",
+      "items": [{
+          "desc": "Layout 布局",
+          "name": "layout",
+          "path": "/layout"
+        },
+        {
+          "desc": "Icon 图标",
+          "name": "icon",
+          "path": "/icon"
+        },
+        {
+          "desc": "Button 按钮",
+          "name": "button",
+          "path": "/button"
+        },
+        {
+          "desc": "Radio 单选",
+          "name": "radio",
+          "path": "/radio"
+        },
+        {
+          "desc": "Input输入框",
+          "name": "input",
+          "path": "/input"
+        }
+      ]
+    },
+    {
+      "desc": "视图组件",
+      "path": "/component",
+      "items": [{
+        "desc": "Alert 提示",
+        "name": "alert",
+        "path": "/alert"
+      }, {
+        "desc": "Modal 模态框",
+        "name": "modal",
+        "path": "/modal"
+      }, {
+        "desc": "Checkbox 复选框",
+        "name": "checkbox",
+        "path": "/checkbox"
+      }, {
+        "desc": "Tree 树形组件",
+        "name": "tree",
+        "path": "/tree"
+      }]
+    }
+  ]
+}

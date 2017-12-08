@@ -1,0 +1,251 @@
+@import "common/var.css";
+@b t {
+  @e button {
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: var(--color-info);
+    border: var(--border-color) 1px solid;
+    color: var(--text-default);
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    border-radius: var(--border-radius-base);
+    padding: 8px 15px;
+    font-size: 14px;
+    @m size-medium {
+      padding: 8px 15px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+    @m size-small {
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 2px;
+    }
+    &.is-round {
+      border-radius: 20px;
+    }
+    @m default {
+      background: var(--color-info);
+      border: var(--border-color) 1px solid;
+      color: var(--text-default);
+      &:hover,
+      &:focus {
+        background: var(--button-hover-default);
+      }
+      &:disabled {
+        color: var(--border-color);
+      }
+      &:active {
+        background: var(--color-info);
+        border: var(--border-color) 1px solid;
+        color: var(--text-default);
+      }
+      @when plain {
+        border: 1px solid var(--color-primary);
+        &:hover,
+        &:focus {
+          background: var(--text-white);
+          border-color: rgba(var(--color-primary), 0.8);
+          color: var(--color-primary);
+        }
+        &:disabled {
+          background: var(--button-default-fill);
+          border: 1px solid var(--color-primary);
+          color: var(--button-default-color);
+        }
+      }
+    }
+    @m primary {
+      background: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      color: var(--text-white);
+      &:hover,
+      &:focus {
+        background: var(--button-hover-primary)
+      }
+      &:disabled {
+        border: var(--border-color);
+        background: var(--border-color)
+      }
+      @when plain {
+        background: rgba(var(--color-primary), 0.05);
+        border-color: rgba(var(--color-primary), 0.8);
+        color: var(--color-primary);
+        &:hover,
+        &:focus {
+          opacity: 1;
+          background: var(--color-primary);
+          border: 1px solid var(--color-primary);
+          color: var(--text-white);
+        }
+        &:disabled {
+          opacity: 0.3;
+          background: rgba(var(--color-primary), 0.05);
+          border-color: rgba(var(--color-primary), 0.8);
+          color: var(--color-primary);
+        }
+      }
+    }
+    @m success {
+      background: var(--color-success);
+      border: 1px solid var(--color-success);
+      color: var(--text-white);
+      &:hover,
+      &:focus {
+        background: var(--button-hover-success)
+      }
+      &:disabled {
+        opacity: 0.3;
+      }
+      @when plain {
+        background: rgba(var(--color-success), 0.05);
+        border-color: rgba(var(--color-success), 0.8);
+        color: var(--color-success);
+        &:hover,
+        &:focus {
+          opacity: 1;
+          background: var(--color-success);
+          border: 1px solid var(--color-success);
+          color: var(--text-white);
+        }
+        &:disabled {
+          opacity: 0.3;
+          background: rgba(var(--color-success), 0.05);
+          border-color: rgba(var(--color-success), 0.8);
+          color: var(--color-success);
+        }
+      }
+    }
+    @m info {
+      background: var(--color-info);
+      border: 1px solid var(--color-info);
+      color: var(--text-white);
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+      &:disabled {
+        opacity: 0.3;
+      }
+      @when plain {
+        background: rgba(var(--color-info), 0.05);
+        border-color: rgba(var(--color-info), 0.8);
+        color: var(--color-info);
+        &:hover,
+        &:focus {
+          opacity: 1;
+          background: var(--color-info);
+          border: 1px solid var(--color-info);
+          color: var(--text-white);
+        }
+        &:disabled {
+          opacity: 0.3;
+          background: rgba(var(--color-info), 0.05);
+          border-color: rgba(var(--color-info), 0.8);
+          color: var(--color-info);
+        }
+      }
+    }
+    @m warning {
+      background: var(--color-warning);
+      border: 1px solid var(--color-warning);
+      color: var(--text-white);
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+      &:disabled {
+        opacity: 0.3;
+      }
+      @when plain {
+        background: rgba(var(--color-warning), 0.05);
+        border-color: rgba(var(--color-warning), 0.8);
+        color: var(--color-warning);
+        &:hover,
+        &:focus {
+          opacity: 1;
+          background: var(--color-warning);
+          border: 1px solid var(--color-warning);
+          color: var(--text-white);
+        }
+        &:disabled {
+          opacity: 0.3;
+          background: rgba(var(--color-warning), 0.05);
+          border-color: rgba(var(--color-warning), 0.8);
+          color: var(--color-warning);
+        }
+      }
+    }
+    @m danger {
+      background: var(--color-danger);
+      border: 1px solid var(--color-danger);
+      color: var(--text-white);
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+      &:disabled {
+        opacity: 0.3;
+      }
+      @when plain {
+        background: rgba(var(--color-danger), 0.05);
+        border-color: rgba(var(--color-danger), 0.8);
+        color: var(--color-danger);
+        &:hover,
+        &:focus {
+          opacity: 1;
+          background: var(--color-danger);
+          border: 1px solid var(--color-danger);
+          color: var(--text-white);
+        }
+        &:disabled {
+          opacity: 0.3;
+          background: rgba(var(--color-danger), 0.05);
+          border-color: rgba(var(--color-danger), 0.8);
+          color: var(--color-danger);
+        }
+      }
+    }
+  }
+}
+
+.btn-link {
+  color: #00a53c;
+  font-weight: normal;
+}
+
+.btn-link,
+.btn-link:active,
+.btn-link.active,
+.btn-link[disabled],
+fieldset[disabled] .btn-link {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-link,
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active {
+  border-color: transparent;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.btn-link[disabled]:hover,
+fieldset[disabled] .btn-link:hover,
+.btn-link[disabled]:focus,
+fieldset[disabled] .btn-link:focus {
+  color: #ccc;
+  text-decoration: none;
+}

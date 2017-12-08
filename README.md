@@ -57,7 +57,7 @@ Vue.use(ttyUI)
 
 ## 贡献
 
-如果你在使用 `tty-ui` 时遇到问题，或者有好的建议，欢迎给我们提 [Issue](https://github.com/tty-ui/tty-ui/issues) 或 [Pull Request](https://github.com/tty-ui/tty-ui/pulls)
+如果你在使用 `tty-ui` 时遇到问题，或者有好的建议，欢迎给我们提 [Issue](https://github.com/ttyunDevGroup/tty-ui/issues) 或 [Pull Request](https://github.com/ttyunDevGroup/tty-ui/pulls)
 
 
 ## Pull requests 规范

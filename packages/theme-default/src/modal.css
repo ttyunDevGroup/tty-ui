@@ -1,0 +1,181 @@
+.modal-open {
+  overflow: hidden;
+}
+
+.t-modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+
+.t-modal.fade .t-modal-dialog {
+  transform: translate(0, -10%);
+  transition: transform 0.3s ease-out;
+}
+
+.t-modal.fade .t-modal-dialog.modal-align-middle {
+  transform: translate(0, -110%);
+}
+
+.t-modal.in .t-modal-dialog {
+  transform: translate(0, 0);
+}
+
+.t-modal.in .t-modal-dialog.modal-align-middle {
+  transform: translate(0, -100%);
+}
+
+.t-modal .modal-align-middle {
+  top: 50%;
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.t-modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+
+.t-modal-content {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.4);
+  background-clip: padding-box;
+  outline: 0;
+}
+
+.t-modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+.t-modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.t-modal-backdrop.in {
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.t-modal-header {
+  position: relative;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: #f5f5f5;
+}
+
+.t-modal-header .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #666;
+  border-radius: 0;
+  border-top-right-radius: 4px;
+}
+
+.t-modal-header .close .iconfont {
+  margin: 0;
+}
+
+.t-modal-title {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.t-modal-body {
+  position: relative;
+  padding: 20px 30px;
+}
+
+.t-modal-footer {
+  padding: 0 30px 20px;
+  text-align: center;
+}
+
+.t-modal-footer .btn+.btn {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.t-modal-footer .btn-group .btn+.btn {
+  margin-left: -1px;
+}
+
+.t-modal-footer .btn-block+.btn-block {
+  margin-left: 0;
+}
+
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+@media (min-width: 768px) {
+  .t-modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+  }
+  .t-modal-content {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  }
+  .t-modal-sm {
+    width: 450px;
+  }
+}
+
+@media (min-width: 992px) {
+  .t-modal-lg {
+    width: 900px;
+  }
+}
+
+.t-modal-header:before,
+.t-modal-header:after,
+.t-modal-footer:before,
+.t-modal-footer:after {
+  content: " ";
+  display: table;
+}
+
+.t-modal-header:after,
+.t-modal-footer:after {
+  clear: both;
+}
+
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
