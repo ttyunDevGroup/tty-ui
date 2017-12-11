@@ -64,6 +64,14 @@
         "desc": "Tree 树形组件",
         "name": "tree",
         "path": "/tree"
+      }, {
+        "desc": "Select下拉选择",
+        "name": "select",
+        "path": "/select"
+      }, {
+        "desc": "Page 分页",
+        "name": "page",
+        "path": "/page"
       }]
     }
   ]

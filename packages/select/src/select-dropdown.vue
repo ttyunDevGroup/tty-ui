@@ -1,15 +1,15 @@
 <template>
-  <div class="b-select-dropdown" :class="[{ 'is-multiple': $parent.multiple }, popperClass]" :style="{ minWidth: minWidth }">
+  <div class="t-select-dropdown" :class="[{ 'is-multiple': $parent.multiple }, popperClass]" :style="{ minWidth: minWidth }">
     <slot></slot>
   </div>
 </template>
 
 <script>
-  import Popper from '@/utils/popper/vue-popper'
+  import Popper from '../../utils/popper/vue-popper'
 
   export default {
-    name: 'BSelectDropdown',
-    componentName: 'BSelectDropdown',
+    name: 'TSelectDropdown',
+    componentName: 'TSelectDropdown',
     mixins: [Popper],
     props: {
       placement: {

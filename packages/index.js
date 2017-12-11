@@ -12,6 +12,14 @@ import { TAlert, Alert } from './alert/index'
 import TModal from './modal/index'
 import TInput from './input/index'
 import TTree from './tree/index'
+import {
+  TSelect,
+  TOption,
+  TOptionGroup,
+  TOptionTree
+} from './select/index'
+
+import TPage from './page/index'
 
 const components = [
   TButton,
@@ -26,7 +34,12 @@ const components = [
   TInput,
   TCheckbox,
   TCheckboxGroup,
-  TTree
+  TTree,
+  TSelect,
+  TOption,
+  TOptionGroup,
+  TOptionTree,
+  TPage
 ]
 
 
@@ -55,5 +68,10 @@ export default {
   TForm,
   TCheckbox,
   TCheckboxGroup,
-  TTree
+  TTree,
+  TSelect,
+  TOption,
+  TOptionGroup,
+  TOptionTree,
+  TPage
 }

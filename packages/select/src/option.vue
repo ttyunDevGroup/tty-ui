@@ -1,47 +1,42 @@
 <template>
-  <div class="b-option-tree">
-    <b-tree :data="optionTreeData" :props="optionTreeProps" :node-key="nodeKey" :default-expanded-keys="defaultExpandedKeys" :filter-node-method="filterNode" @node-click="handleNodeClick" ref="tree"></b-tree>
-  </div>
+  <li @mouseenter="hoverItem" @click.stop="selectOptionClick" class="t-select-dropdown__item" v-show="visible" :class="{
+      'selected': itemSelected,
+      'is-disabled': disabled || groupDisabled || limitReached,
+      'hover': parent.hoverIndex === index
+    }">
+    <slot>
+      <span>{{ currentLabel }}</span>
+    </slot>
+  </li>
 </template>
 
 <script>
-import Emitter from '@/utils/mixins/emitter'
-import { getValueByPath } from '@/utils'
-import BTree from '@/components/tree'
+import Emitter from '../../mixins/emitter'
+import { getValueByPath } from '../../utils'
 export default {
   mixins: [Emitter],
-  name: 'BOptionTree',
-  componentName: 'BOptionTree',
-  components: {
-    BTree
-  },
+  name: 'TOption',
+  componentName: 'TOption',
   props: {
-    treeData: {
-      type: Array
+    value: {
+      required: true
     },
-    treeProps: Object,
-    nodeKey: {
-      type: String,
-      default: 'value'
+    label: [String, Number],
+    created: Boolean,
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      value: '',
-      label: '',
       index: -1,
       groupDisabled: false,
-      hitState: false,
-      defaultExpandedKeys: []
+      visible: true,
+      hitState: false
     }
   },
   computed: {
-    optionTreeData() {
-      return this.treeData
-    },
-    optionTreeProps() {
-      return this.treeProps
-    },
     isObject() {
       return Object.prototype.toString.call(this.value).toLowerCase() === '[object object]'
     },
@@ -71,20 +66,14 @@ export default {
       } else {
         return false
       }
-    },
-    labelKey() {
-      return this.treeProps.label || 'label'
-    },
-    childrenKey() {
-      return this.treeProps.children || 'children'
     }
   },
   watch: {
     currentLabel() {
-      if (!this.parent.remote) this.dispatch('BSelect', 'setSelected')
+      if (!this.created && !this.parent.remote) this.dispatch('BSelect', 'setSelected')
     },
     value() {
-      if (!this.parent.remote) this.dispatch('BSelect', 'setSelected')
+      if (!this.created && !this.parent.remote) this.dispatch('BSelect', 'setSelected')
     }
   },
   methods: {
@@ -114,28 +103,16 @@ export default {
         this.parent.hoverIndex = this.parent.options.indexOf(this)
       }
     },
-    handleNodeClick(data) {
-      if (!data[this.childrenKey] || !data[this.childrenKey].length) {
-        this.value = data[this.nodeKey]
-        this.label = data[this.labelKey]
-        this.dispatch('BSelect', 'handleOptionClick', this)
+    selectOptionClick() {
+      if (this.disabled !== true && this.groupDisabled !== true) {
+        this.dispatch('TSelect', 'handleOptionClick', this)
       }
-    },
-    filterNode(value, data, node) {
-      if (!value) return true
-      return (!data[this.childrenKey] || (data[this.childrenKey] && !data[this.childrenKey].length)) && new RegExp(value, 'i').test(data[this.labelKey])
     },
     queryChange(query) { // query 里如果有正则中的特殊字符，需要先将这些字符转义
       let parsedQuery = String(query).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, '\\$1')
-      this.$refs.tree.filter(parsedQuery)
-    },
-    setCurrentKey(value) {
-      if(this.treeData.length) {
-        this.$refs.tree.setCurrentKey(value)
-        let currentNode = this.$refs.tree.getCurrentNode()
-        this.value = currentNode[this.nodeKey]
-        this.label = currentNode[this.labelKey]
-        this.defaultExpandedKeys = [this.value]
+      this.visible = new RegExp(parsedQuery, 'i').test(this.currentLabel) || this.created
+      if (!this.visible) {
+        this.parent.filteredOptionsCount--
       }
     },
     resetIndex() {
@@ -151,12 +128,11 @@ export default {
     this.parent.filteredOptionsCount++
     this.index = this.parent.options.indexOf(this)
     this.$on('queryChange', this.queryChange)
-    this.$on('setCurrentKey', this.setCurrentKey)
     this.$on('handleGroupDisabled', this.handleGroupDisabled)
     this.$on('resetIndex', this.resetIndex)
   },
   beforeDestroy() {
-    this.dispatch('BSelect', 'onOptionDestroy', this)
+    this.dispatch('TSelect', 'onOptionDestroy', this)
   }
 }
 </script>

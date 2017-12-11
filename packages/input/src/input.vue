@@ -16,8 +16,8 @@
       <input v-if="type !== 'textarea'" class="b-input__inner form-control" :class="[size ? 'input-' + size : '']" v-bind="$props" :autocomplete="autoComplete" :value="currentValue" ref="input" @input="handleInput" @focus="handleFocus" @blur="handleBlur">
       <!-- input 图标 -->
       <slot name="icon">
-        <i class="b-input__icon iconfont input-group-inner-addon" :class="[
-            'icon-' + icon,
+        <i class="b-input__icon input-group-inner-addon" :class="[
+            't-icon-' + icon,
             onIconClick ? 'is-clickable' : '',
             size ? 'input-' + size : ''
           ]" v-if="icon" @click="handleIconClick">

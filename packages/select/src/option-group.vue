@@ -1,8 +1,8 @@
 <template>
-  <ul class="b-select-group__wrap">
-    <li class="b-select-group__title" v-show="visible">{{ label }}</li>
+  <ul class="t-select-group__wrap">
+    <li class="t-select-group__title" v-show="visible">{{ label }}</li>
     <li>
-      <ul class="b-select-group">
+      <ul class="t-select-group">
         <slot></slot>
       </ul>
     </li>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-  import Emitter from '@/utils/mixins/emitter'
+  import Emitter from '../../mixins/emitter'
   export default {
     mixins: [Emitter],
-    name: 'BOptionGroup',
-    componentName: 'BOptionGroup',
+    name: 'TOptionGroup',
+    componentName: 'TOptionGroup',
     props: {
       label: String,
       disabled: {
@@ -29,7 +29,7 @@
     },
     watch: {
       disabled(val) {
-        this.broadcast('BOption', 'handleGroupDisabled', val)
+        this.broadcast('TOption', 'handleGroupDisabled', val)
       }
     },
     methods: {
@@ -42,7 +42,7 @@
     },
     mounted() {
       if(this.disabled) {
-        this.broadcast('BOption', 'handleGroupDisabled', this.disabled)
+        this.broadcast('TOption', 'handleGroupDisabled', this.disabled)
       }
     }
   }

@@ -5,12 +5,12 @@
  * @Last Modified time: 2017-11-20 15:44:11
  */
 <template>
-  <div class="b-select" v-clickoutside="handleClose">
-    <div class="b-select__tags" v-if="multiple" @click.stop="toggleMenu" ref="tags" :style="{ 'max-width': inputWidth - 35 + 'px' }">
+  <div class="t-select" v-clickoutside="handleClose">
+    <div class="t-select__tags" v-if="multiple" @click.stop="toggleMenu" ref="tags" :style="{ 'max-width': inputWidth - 35 + 'px' }">
       <transition-group @after-leave="resetInputHeight">
-        <b-tag v-for="item in selected" :key="getValueKey(item)" :closable="!disabled" :hit="item.hitState" @close="deleteTag($event, item)" close-transition>
-          <span class="b-select__tags-text">{{ item.currentLabel }}</span>
-        </b-tag>
+        <t-tag v-for="item in selected" :key="getValueKey(item)" :closable="!disabled" :hit="item.hitState" @close="deleteTag($event, item)" close-transition>
+          <span class="t-select__tags-text">{{ item.currentLabel }}</span>
+        </t-tag>
       </transition-group>
       <!-- <input
         type="text"
@@ -28,46 +28,46 @@
         v-if="filterable"
         ref="input"> -->
     </div>
-    <b-input ref="reference" v-model="selectedLabel" type="text" :placeholder="currentPlaceholder" :name="name" :size="size" :width="width" :disabled="disabled" readonly :validate-event="false" @focus="handleFocus" @click="handleIconClick" @mousedown.native="handleMouseDown" @keyup.native="debouncedOnInputChange" @keydown.native.down.prevent="navigateOptions('next')" @keydown.native.up.prevent="navigateOptions('prev')" @keydown.native.enter.prevent="selectOption" @keydown.native.esc.stop.prevent="visible = false" @keydown.native.tab="visible = false" @paste.native="debouncedOnInputChange" @mouseenter.native="inputHovering = true" @mouseleave.native="inputHovering = false" :icon="iconClass"></b-input>
+    <t-input ref="reference" v-model="selectedLabel" type="text" :placeholder="currentPlaceholder" :name="name" :size="size" :width="width" :disabled="disabled" readonly :validate-event="false" @focus="handleFocus" @click="handleIconClick" @mousedown.native="handleMouseDown" @keyup.native="debouncedOnInputChange" @keydown.native.down.prevent="navigateOptions('next')" @keydown.native.up.prevent="navigateOptions('prev')" @keydown.native.enter.prevent="selectOption" @keydown.native.esc.stop.prevent="visible = false" @keydown.native.tab="visible = false" @paste.native="debouncedOnInputChange" @mouseenter.native="inputHovering = true" @mouseleave.native="inputHovering = false" :icon="iconClass"></t-input>
     <transition name="b-zoom-in-top" @before-enter="handleMenuEnter" @after-leave="doDestroy">
-      <b-select-dropdown ref="popper" v-show="visible">
-        <div type="text" class="b-select-query" v-if="filterable">
-          <i class="iconfont icon-search"></i>
-          <input type="text" class="b-select-query__input" @keydown.enter.stop.prevent="doFilter" v-model="query" :debounce="remote ? 300 : 0" ref="input">
-          <div class="b-query-button" :class="{'active': query}" @click="doFilter">检索</div>
+      <t-select-dropdown ref="popper" v-show="visible">
+        <div type="text" class="t-select-query" v-if="filterable">
+          <i class="t-icon-search icon-search"></i>
+          <input type="text" class="t-select-query__input" @keydown.enter.stop.prevent="doFilter" v-model="query" :debounce="remote ? 300 : 0" ref="input">
+          <div class="t-query-button" :class="{'active': query}" @click="doFilter">检索</div>
         </div>
-        <b-scrollbar tag="ul" wrap-class="b-select-dropdown__wrap" view-class="b-select-dropdown__list" v-show="options.length > 0 && !loading">
+        <t-scrollbar tag="ul" wrap-class="t-select-dropdown__wrap" view-class="t-select-dropdown__list" v-show="options.length > 0 && !loading">
           <slot></slot>
-        </b-scrollbar>
-        <p class="b-select-dropdown__empty" v-if="emptyText">{{ emptyText }}</p>
-        <div class="b-select-create__option" v-if="allowCreate">
+        </t-scrollbar>
+        <p class="t-select-dropdown__empty" v-if="emptyText">{{ emptyText }}</p>
+        <div class="t-select-create__option" v-if="allowCreate">
           <slot name="footer">
-            <button type="button" class="b-select-create__btn btn btn-default" @click="createMethod">{{createButtonText}}</button>
+            <button type="button" class="t-select-create__btn btn btn-default" @click="createMethod">{{createButtonText}}</button>
           </slot>
         </div>
-      </b-select-dropdown>
+      </t-select-dropdown>
     </transition>
   </div>
 </template>
 
 <script>
-import Emitter from '@/utils/mixins/emitter'
-import BInput from '@/components/input'
-import BSelectDropdown from './select-dropdown'
-import BOption from './option'
-import BTag from '@/components/tag/tag'
-import BScrollbar from '@/components/scrollbar'
+import Emitter from '../../mixins/emitter'
+import TInput from '../../input'
+import TSelectDropdown from './select-dropdown'
+import TOption from './option'
+import TTag from '../../tag/tag'
+import TScrollbar from '../../scrollbar'
 import debounce from 'throttle-debounce/debounce'
-import Clickoutside from '@/utils/directives/clickoutside'
-import domUtils from '@/utils/domUtils'
-import { addResizeListener, removeResizeListener } from '@/utils/resize-event'
-import scrollIntoView from '@/utils/scroll-into-view'
-import { getValueByPath } from '@/utils'
+import Clickoutside from '../../utils/directives/clickoutside'
+import domUtils from '../../utils/domUtils'
+import { addResizeListener, removeResizeListener } from '../../utils/resize-event'
+import scrollIntoView from '../../utils/scroll-into-view'
+import { getValueByPath } from '../../utils'
 
 export default {
   mixins: [Emitter],
-  name: 'BSelect',
-  componentName: 'BSelect',
+  name: 'TSelect',
+  componentName: 'TSelect',
   computed: {
     iconClass() {
       let criteria = this.clearable && !this.disabled && this.inputHovering && !this.multiple && this.value !== undefined && this.value !== ''
@@ -91,11 +91,11 @@ export default {
     }
   },
   components: {
-    BInput,
-    BSelectDropdown,
-    BOption,
-    BTag,
-    BScrollbar
+    TInput,
+    TSelectDropdown,
+    TOption,
+    TTag,
+    TScrollbar
   },
   directives: {
     Clickoutside
@@ -177,13 +177,13 @@ export default {
       }
       this.setSelected()
       this.$emit('change', val)
-      this.dispatch('BFormItem', 'b.form.change', val)
+      this.dispatch('TFormItem', 't.form.change', val)
     },
     visible(val) {
       if (!val) {
         this.$refs.reference.$el.querySelector('input').blur()
         this.handleIconHide()
-        this.broadcast('BSelectDropdown', 'destroyPopper')
+        this.broadcast('TSelectDropdown', 'destroyPopper')
         if (this.$refs.input) {
           this.$refs.reference.$el.querySelector('input').blur()
         }
@@ -206,16 +206,16 @@ export default {
         }
       } else {
         this.handleIconShow()
-        this.broadcast('BSelectDropdown', 'updatePopper')
+        this.broadcast('TSelectDropdown', 'updatePopper')
         if (this.filterable) {
           // this.query = this.selectedLabel
           if (this.multiple) {
             this.$refs.input.focus()
           } else {
             if (!this.remote) {
-              this.broadcast('BOption', 'queryChange', '')
-              this.broadcast('BOptionGroup', 'queryChange')
-              this.broadcast('BOptionTree', 'queryChange', '')
+              this.broadcast('TOption', 'queryChange', '')
+              this.broadcast('TOptionGroup', 'queryChange')
+              this.broadcast('TOptionTree', 'queryChange', '')
             }
             // this.broadcast('BInput', 'inputSelect')
           }
@@ -252,7 +252,7 @@ export default {
     scrollToOption(option) {
       const target = Array.isArray(option) && option[0] ? option[0].$el : option.$el
       if (this.$refs.popper && target) {
-        const menu = this.$refs.popper.$el.querySelector('.b-select-dropdown__wrap')
+        const menu = this.$refs.popper.$el.querySelector('.t-select-dropdown__wrap')
         scrollIntoView(menu, target)
       }
     },
@@ -362,7 +362,7 @@ export default {
         // let input = [].filter.call(inputChildNodes, item => item.tagName === 'INPUT')[0]
         // input.style.height = Math.max(this.$refs.tags.clientHeight + 6, sizeMap[this.size] || 30) + 'px'
         if (this.visible && this.emptyText !== false) {
-          this.broadcast('BSelectDropdown', 'updatePopper')
+          this.broadcast('TSelectDropdown', 'updatePopper')
         }
       })
     },
@@ -422,8 +422,8 @@ export default {
         return
       }
       if (!this.disabled) {
-        this.visible = !this.visible
-        if (this.visible) {
+        this.visible = !this.visibles
+        if (this.visible && this.$children[0].$refs.input) {
           this.$children[0].$refs.input.focus()
         }
       }
@@ -483,7 +483,7 @@ export default {
       if (val === null || val === undefined) {
         return this.$nextTick(() => {
           if (this.visible) {
-            this.broadcast('BSelectDropdown', 'updatePopper')
+            this.broadcast('TSelectDropdown', 'updatePopper')
           }
         })
       }
@@ -495,15 +495,15 @@ export default {
       if (this.remote && typeof this.remoteMethod === 'function') {
         this.hoverIndex = -1
         this.remoteMethod(val)
-        this.broadcast('BOption', 'resetIndex')
+        this.broadcast('TOption', 'resetIndex')
       } else if (typeof this.filterMethod === 'function') {
         this.filterMethod(val)
-        this.broadcast('BOptionGroup', 'queryChange')
+        this.broadcast('TOptionGroup', 'queryChange')
       } else {
         this.filteredOptionsCount = this.optionsCount
-        this.broadcast('BOption', 'queryChange', val)
-        this.broadcast('BOptionGroup', 'queryChange')
-        this.broadcast('BOptionTree', 'queryChange', val)
+        this.broadcast('TOption', 'queryChange', val)
+        this.broadcast('TOptionGroup', 'queryChange')
+        this.broadcast('TOptionTree', 'queryChange', val)
       }
       if (this.defaultFirstOption && (this.filterable || this.remote) && this.filteredOptionsCount) {
         this.checkDefaultFirstOption()
@@ -521,7 +521,7 @@ export default {
       if (index > -1) {
         this.options.splice(index, 1)
       }
-      this.broadcast('BOption', 'resetIndex')
+      this.broadcast('TOption', 'resetIndex')
     },
     resetInputWidth() {
       this.inputWidth = this.$refs.reference.$el.getBoundingClientRect().width
@@ -609,352 +609,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.b-select-dropdown {
-  position: absolute;
-  z-index: 1001;
-  margin: 4px 0;
-  border: 1px solid #00a53c;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  color: #333;
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item {
-  padding-left: 32px;
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item::before {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  left: 10px;
-  top: 7px;
-  z-index: 10;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  width: 16px;
-  height: 16px;
-  background-color: #fff;
-  z-index: 1;
-  transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
-    background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item.selected {
-  background-color: #ffb;
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item.selected.hover {
-  background-color: #ff9;
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item.selected::before {
-  border-color: #00a53c;
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item::after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  left: 15px;
-  top: 9px;
-  z-index: 20;
-  width: 4px;
-  height: 8px;
-  box-sizing: content-box;
-  border: 2px solid #fff;
-  border-left: 0;
-  border-top: 0;
-  transform: rotate(45deg) scaleY(0);
-  transition: transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s;
-  transform-origin: center;
-}
-
-.b-select-dropdown.is-multiple .b-select-dropdown__item.selected::after {
-  border-color: #00a53c;
-  transform: rotate(45deg) scaleY(1);
-}
-
-.b-select-dropdown__empty {
-  padding: 10px 0;
-  margin: 0;
-  text-align: center;
-  color: #666;
-  font-size: 14px;
-}
-
-.b-select-dropdown__wrap {
-  max-height: 317px;
-}
-
-.b-select-dropdown__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.b-select-dropdown__item {
-  font-size: 14px;
-  padding: 0 10px;
-  position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 30px;
-  line-height: 30px;
-  cursor: pointer;
-}
-
-.b-select-dropdown__item.hover,
-.b-select-dropdown__item:hover {
-  background-color: #ffd;
-}
-
-.b-select-dropdown__item.selected {
-  background-color: #ffb;
-}
-
-.b-select-dropdown__item.selected.hover {
-  background-color: #ff9;
-}
-
-.b-select-dropdown__item.is-disabled {
-  color: rgb(191, 217, 203);
-  cursor: not-allowed;
-}
-
-.b-select-dropdown__item.is-disabled:hover {
-  background-color: #fff;
-}
-
-.b-select-group {
-  margin: 0;
-  padding: 0;
-}
-
-.b-select-group .b-select-dropdown__item {
-  padding-left: 20px;
-}
-
-.b-select-group__wrap {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.b-select-group__title {
-  padding-left: 10px;
-  font-size: 12px;
-  color: #999;
-  height: 30px;
-  line-height: 30px;
-}
-
-.b-select {
-  position: relative;
-}
-
-.b-select .form-control[readonly],
-.b-select fieldset[disabled] .form-control {
-  background-color: #fff;
-}
-
-.b-select .form-control[disabled] {
-  cursor: not-allowed;
-}
-
-.b-select .input-group-inner .form-control[readonly]:focus {
-  border-color: #00a53c;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 3px rgba(0, 165, 60, 0.6);
-}
-
-.b-select
-  .input-group-inner
-  .form-control[readonly]
-  ~ .input-group-inner-addon {
-  color: #666;
-  background-color: #fafafa;
-  border-color: #ccc;
-}
-
-.b-select
-  .input-group-inner
-  .form-control[readonly]
-  ~ .input-group-inner-addon:hover {
-  box-shadow: inset 0 0 1000px rgba(0, 0, 0, 0.1);
-}
-
-.b-select
-  .input-group-inner
-  .form-control[readonly]:focus
-  ~ .input-group-inner-addon {
-  color: #00a53c;
-  background-color: #e6f5eb;
-  border-color: #00a53c;
-}
-
-.b-select .b-input__inner {
-  cursor: pointer;
-  padding-right: 35px;
-}
-
-.b-select .b-input__inner:focus {
-  border-color: #00a53c;
-}
-
-.b-select .b-input .b-input__icon {
-  cursor: pointer;
-  &:before {
-    display: block;
-  }
-  &.is-reverse:before {
-    transform: rotateZ(180deg);
-  }
-}
-
-.b-select .b-input.is-disabled .b-input__inner {
-  cursor: not-allowed;
-}
-
-.b-select > .b-input {
-  display: block;
-}
-
-.b-select .b-tag__close {
-  margin-top: -2px;
-}
-
-.b-select .b-tag {
-  height: 24px;
-  line-height: 24px;
-  margin: 3px 0 3px 6px;
-}
-
-.b-select__input {
-  border: none;
-  outline: 0;
-  padding: 0;
-  color: #666;
-  font-size: 14px;
-  vertical-align: baseline;
-  background-color: transparent;
-}
-
-.b-select__close {
-  cursor: pointer;
-  position: absolute;
-  top: 8px;
-  z-index: 1000;
-  right: 25px;
-  color: rgb(191, 217, 203);
-  line-height: 18px;
-  font-size: 12px;
-}
-
-.b-select__close:hover {
-  color: rgb(151, 190, 171);
-}
-
-.b-select__tags {
-  position: absolute;
-  line-height: normal;
-  white-space: normal;
-  z-index: 10;
-  top: 0;
-}
-
-.b-select__tag {
-  display: inline-block;
-  height: 24px;
-  line-height: 24px;
-  font-size: 14px;
-  border-radius: 4px;
-  color: #fff;
-  background-color: #00a53c;
-}
-
-.b-select__tag .b-icon-close {
-  font-size: 12px;
-}
-
-.b-select-query {
-  position: relative;
-  height: 30px;
-  line-height: 30px;
-  border-bottom: 1px solid #ddd;
-
-  .icon-search {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 10;
-    padding: 0 6px 0 10px;
-    font-size: 16px;
-    color: #999;
-  }
-
-  .b-select-query__input {
-    width: 100%;
-    height: 100%;
-    padding: 0 60px 0 32px;
-    border: none;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-
-    &:focus,
-    &:active {
-      outline: 0;
-    }
-
-    &::-moz-placeholder {
-      color: #999;
-      opacity: 1;
-    }
-    &:-ms-input-placeholder {
-      color: #999;
-    }
-    &::-webkit-input-placeholder {
-      color: #999;
-    }
-  }
-
-  .b-query-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
-    padding: 0 15px;
-    background-color: #fafafa;
-    color: #ccc;
-    border-left: 1px solid #ddd;
-    border-top-right-radius: 4px;
-
-    &.active {
-      color: #00a53c;
-    }
-  }
-}
-
-.b-select-create__option {
-  .b-select-create__btn {
-    width: 100%;
-    border-width: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #00a53c;
-    background-color: #e6f5eb;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #f5f5f5;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    text-align: left;
-  }
-}
-</style>

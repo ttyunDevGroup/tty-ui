@@ -1,42 +1,47 @@
 <template>
-  <li @mouseenter="hoverItem" @click.stop="selectOptionClick" class="b-select-dropdown__item" v-show="visible" :class="{
-      'selected': itemSelected,
-      'is-disabled': disabled || groupDisabled || limitReached,
-      'hover': parent.hoverIndex === index
-    }">
-    <slot>
-      <span>{{ currentLabel }}</span>
-    </slot>
-  </li>
+  <div class="t-option-tree">
+    <t-tree :data="optionTreeData" :props="optionTreeProps" :node-key="nodeKey" :default-expanded-keys="defaultExpandedKeys" :filter-node-method="filterNode" @node-click="handleNodeClick" ref="tree"></t-tree>
+  </div>
 </template>
 
 <script>
-import Emitter from '@/utils/mixins/emitter'
-import { getValueByPath } from '@/utils'
+import Emitter from '../../mixins/emitter'
+import { getValueByPath } from '../../utils'
+import TTree from '../../tree'
 export default {
   mixins: [Emitter],
-  name: 'BOption',
-  componentName: 'BOption',
+  name: 'TOptionTree',
+  componentName: 'TOptionTree',
+  components: {
+    TTree
+  },
   props: {
-    value: {
-      required: true
+    treeData: {
+      type: Array
     },
-    label: [String, Number],
-    created: Boolean,
-    disabled: {
-      type: Boolean,
-      default: false
+    treeProps: Object,
+    nodeKey: {
+      type: String,
+      default: 'value'
     }
   },
   data() {
     return {
+      value: '',
+      label: '',
       index: -1,
       groupDisabled: false,
-      visible: true,
-      hitState: false
+      hitState: false,
+      defaultExpandedKeys: []
     }
   },
   computed: {
+    optionTreeData() {
+      return this.treeData
+    },
+    optionTreeProps() {
+      return this.treeProps
+    },
     isObject() {
       return Object.prototype.toString.call(this.value).toLowerCase() === '[object object]'
     },
@@ -66,14 +71,20 @@ export default {
       } else {
         return false
       }
+    },
+    labelKey() {
+      return this.treeProps.label || 'label'
+    },
+    childrenKey() {
+      return this.treeProps.children || 'children'
     }
   },
   watch: {
     currentLabel() {
-      if (!this.created && !this.parent.remote) this.dispatch('BSelect', 'setSelected')
+      if (!this.parent.remote) this.dispatch('TSelect', 'setSelected')
     },
     value() {
-      if (!this.created && !this.parent.remote) this.dispatch('BSelect', 'setSelected')
+      if (!this.parent.remote) this.dispatch('TSelect', 'setSelected')
     }
   },
   methods: {
@@ -103,16 +114,28 @@ export default {
         this.parent.hoverIndex = this.parent.options.indexOf(this)
       }
     },
-    selectOptionClick() {
-      if (this.disabled !== true && this.groupDisabled !== true) {
-        this.dispatch('BSelect', 'handleOptionClick', this)
+    handleNodeClick(data) {
+      if (!data[this.childrenKey] || !data[this.childrenKey].length) {
+        this.value = data[this.nodeKey]
+        this.label = data[this.labelKey]
+        this.dispatch('TSelect', 'handleOptionClick', this)
       }
+    },
+    filterNode(value, data, node) {
+      if (!value) return true
+      return (!data[this.childrenKey] || (data[this.childrenKey] && !data[this.childrenKey].length)) && new RegExp(value, 'i').test(data[this.labelKey])
     },
     queryChange(query) { // query 里如果有正则中的特殊字符，需要先将这些字符转义
       let parsedQuery = String(query).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, '\\$1')
-      this.visible = new RegExp(parsedQuery, 'i').test(this.currentLabel) || this.created
-      if (!this.visible) {
-        this.parent.filteredOptionsCount--
+      this.$refs.tree.filter(parsedQuery)
+    },
+    setCurrentKey(value) {
+      if(this.treeData.length) {
+        this.$refs.tree.setCurrentKey(value)
+        let currentNode = this.$refs.tree.getCurrentNode()
+        this.value = currentNode[this.nodeKey]
+        this.label = currentNode[this.labelKey]
+        this.defaultExpandedKeys = [this.value]
       }
     },
     resetIndex() {
@@ -128,11 +151,12 @@ export default {
     this.parent.filteredOptionsCount++
     this.index = this.parent.options.indexOf(this)
     this.$on('queryChange', this.queryChange)
+    this.$on('setCurrentKey', this.setCurrentKey)
     this.$on('handleGroupDisabled', this.handleGroupDisabled)
     this.$on('resetIndex', this.resetIndex)
   },
   beforeDestroy() {
-    this.dispatch('BSelect', 'onOptionDestroy', this)
+    this.dispatch('TSelect', 'onOptionDestroy', this)
   }
 }
 </script>
