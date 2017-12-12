@@ -25,8 +25,9 @@
                 <i v-else class="taggolIcon noborder"></i>
               </span>
               <span v-if="snum == 0">
-                <i class="iconfont textIcon" v-if="index == 0">&#xe7b4;</i>
-                <i class="iconfont textIcon" v-else>{{item.tree_type == '1' ? '&#xe7b5;' : '&#xe7b6;'}}</i>
+                <i class="textIcon t-icon-zongzuzh" v-if="index == 0"></i>
+                <i class="textIcon" 
+                   :class="item.tree_type == '1' ? 't-icon-zuzhi' : 't-icon-bumen'" v-else></i>
               </span>
               {{renderBody(item,column)}}
             </label>
@@ -45,7 +46,8 @@
 </template>
 <script>
 export default {
-  name: 'treeGrid',
+  name: 'TTreeTable',
+  componentName: 'TTreeTable',
   props: {
     columns: Array,
     items: {
@@ -314,7 +316,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .autoTbale {
   overflow: auto;
 }
@@ -326,7 +328,7 @@ export default {
     border-collapse: collapse;
   }
   .table-bordered {
-    border: 1px solid #ddd;
+    // border: 1px solid #ddd;
   }
   .table>thead>tr>th{
     text-align: center;

@@ -13,7 +13,7 @@
             <thead>
               <tr :style="{height: titleHeight + 'px', borderBottom: (titleFixed=='auto') ? 0 : '1px solid #ddd'}">
                 <th>
-                  <b-checkbox v-model="checkedAll" @change="checkedAllItem" :indeterminate="isIndeterminate"></b-checkbox>
+                  <t-checkbox v-model="checkedAll" @change="checkedAllItem" :indeterminate="isIndeterminate"></t-checkbox>
                 </th>
               </tr>
             </thead>
@@ -28,7 +28,7 @@
               <tr v-for="(item, index) in data" :key="index" @mouseenter="mouseEnter(index)" @mouseout="mouseOut(index)" :class="toTrClass(index)"
                 :style="{height: tdHeight + 'px'}">
                 <td>
-                  <b-checkbox v-model="checkedItems" :label="index" :show-label="false" @change="checkedSingleItem"></b-checkbox>
+                  <t-checkbox v-model="checkedItems" :label="index" :show-label="false" @change="checkedSingleItem"></t-checkbox>
                 </td>
               </tr>
             </tbody>
@@ -48,7 +48,7 @@
             <thead>
               <tr :style="{height: titleHeight + 'px', borderBottom: (titleFixed=='auto') ? 0 : '1px solid #ddd'}">
                 <th v-if="showSelect">
-                  <b-checkbox v-model="checkedAll" @change="checkedAllItem" :indeterminate="isIndeterminate"></b-checkbox>
+                  <t-checkbox v-model="checkedAll" @change="checkedAllItem" :indeterminate="isIndeterminate"></t-checkbox>
                 </th>
                 <th v-if="orderNumber">序号</th>
                 <th v-for="(item,index) in columns" :key="index">{{item.title}}</th>
@@ -69,7 +69,7 @@
             <thead v-show="false">
               <tr :style="{height: titleHeight + 'px', borderBottom: (titleFixed=='auto') ? 0 : '1px solid #ddd'}">
                 <th v-if="showSelect">
-                  <b-checkbox v-model="checkedAll" @change="checkedAllItem" :indeterminate="isIndeterminate"></b-checkbox>
+                  <t-checkbox v-model="checkedAll" @change="checkedAllItem" :indeterminate="isIndeterminate"></t-checkbox>
                 </th>
                 <th v-if="orderNumber">序号</th>
                 <th v-for="(item,index) in columns" :key="index">{{item.title}}</th>
@@ -80,7 +80,7 @@
               <tr v-for="(dataItem, index) in data" :key="index" @mouseenter.stop.prevent="mouseEnter(index)" @mouseout.stop.prevent="mouseOut(index)"
                 v-on:click.stop="tItamClick(dataItem)" :class="toTrClass(index)" :style="{height: tdHeight + 'px'}">
                 <td v-if="showSelect" class="tbSelect">
-                  <b-checkbox v-model="checkedItems" :label="index" :show-label="false" @change="checkedSingleItem"></b-checkbox>
+                  <t-checkbox v-model="checkedItems" :label="index" :show-label="false" @change="checkedSingleItem"></t-checkbox>
                 </td>
                 <td v-if="orderNumber" style="text-align: center">{{calculateOrderNumber(index)}}</td>
 
@@ -137,7 +137,7 @@
     </div>
     <!--分页-->
     <div class="page" v-if="!pagination.hidePagination && pagination.total">
-      <b-pagination :max-size="pagination.maxSize" :total="pagination.total" :page-sizes="pageSizes" v-model="currentPage" @change="changePage"></b-pagination>
+      <t-page :max-size="pagination.maxSize" :total="pagination.total" :page-sizes="pageSizes" v-model="currentPage" @change="changePage"></t-page>
     </div>
     <!--划词提示框-->
     <!--<p class="crossWord">{{crossWord}}</p>-->
@@ -145,14 +145,14 @@
 </template>
 
 <script>
-import BPagination from '../pagination/pagination'
-import BCheckbox from '../checkbox/checkbox'
+import TPage from '../../page/index'
+import {TCheckbox} from '../../checkbox/index'
 export default {
-  name: 'BTable',
-  componentName: 'BTable',
+  name: 'TTable',
+  componentName: 'TTable',
   components: {
-    BPagination,
-    BCheckbox
+    TPage,
+    TCheckbox
   },
   props: {
     columns: {
@@ -497,11 +497,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-* {
+table, th, td, h1, h2, img, p{
   margin: 0;
-  padding: 0;
+  padding: 0
 }
-
 table {
   border-collapse: collapse;
   tr {
@@ -567,6 +566,7 @@ td {
 
 .content {
   position: relative;
+  overflow: hidden;
 }
 
 .table-fixed-left {

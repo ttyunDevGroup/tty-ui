@@ -18,8 +18,9 @@ import {
   TOptionGroup,
   TOptionTree
 } from './select/index'
-
 import TPage from './page/index'
+import { TTable, TTreeTable } from './table/index'
+import { TSwitch } from './switch/index'
 
 const components = [
   TButton,
@@ -39,7 +40,10 @@ const components = [
   TOption,
   TOptionGroup,
   TOptionTree,
-  TPage
+  TPage,
+  TTable,
+  TTreeTable,
+  TSwitch
 ]
 
 
@@ -73,5 +77,8 @@ export default {
   TOption,
   TOptionGroup,
   TOptionTree,
-  TPage
+  TPage,
+  TTable,
+  TTreeTable,
+  TSwitch
 }
