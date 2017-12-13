@@ -132,7 +132,7 @@
       height: 548px;
     }
   }
-  table td, table th{
+  .docs-demo table td, .docs-demo table th{
     border: 1px solid #f1f1f1;
     text-align: center;
     padding: 0 10px;

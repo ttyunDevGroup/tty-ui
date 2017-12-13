@@ -22,6 +22,12 @@ import TPage from './page/index'
 import { TTable, TTreeTable } from './table/index'
 import { TSwitch } from './switch/index'
 
+import {
+  TDatePicker,
+  TTimePicker,
+  TTimeSelect,
+} from './datetime-picker/index'
+
 const components = [
   TButton,
   TRow,
@@ -43,7 +49,10 @@ const components = [
   TPage,
   TTable,
   TTreeTable,
-  TSwitch
+  TSwitch,
+  TDatePicker,
+  TTimePicker,
+  TTimeSelect,
 ]
 
 
@@ -80,5 +89,8 @@ export default {
   TPage,
   TTable,
   TTreeTable,
-  TSwitch
+  TSwitch,
+  TDatePicker,
+  TTimePicker,
+  TTimeSelect,
 }
