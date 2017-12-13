@@ -6,7 +6,7 @@
 
 # TTY-UI
 
-`tty-ui` 是一款基于 `Vue2`和`element` 开发的前端 UI 组件库，主要用于田田云公司，快速开发 PC 网站中后台产品
+`tty-ui` 是一款基于 `vue2`和`element` 开发的前端 UI 组件库，主要用于田田云公司，快速开发 PC 网站中后台产品
 [演示地址](https://ttyundevgroup.github.io/tty-ui/dist/#/)
 
 <p align="center">
@@ -22,7 +22,7 @@
 
 ## 特性
 
-- 基于 `Vue` 开发的 UI 组件
+- 基于 `vue2`和`element`开发的 UI 组件
 - 使用 npm + webpack + babel 的工作流，支持 ES2015
 - 提供友好的 API，可灵活的使用组件
 
