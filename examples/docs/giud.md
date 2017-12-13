@@ -20,7 +20,7 @@
 
 - 现在是开发版本
 - 0.0.1
-- 你可以订阅：[http://ttyun.com](#) 来获得版发布更新的通知。
+- 你可以订阅：[https://github.com/ttyunDevGroup/tty-ui](https://github.com/ttyunDevGroup/tty-ui) 来获得版发布更新的通知。
 
 
 ## 使用 npm 安装
@@ -37,4 +37,4 @@ yarn add tty-ui
 
 ## 贡献
 
-如果你在使用 `tty-ui` 时遇到问题，或者有好的建议，欢迎给我们提 [Issue](#) 或 [Pull Request](#)
+如果你在使用 `tty-ui` 时遇到问题，或者有好的建议，欢迎给我们提 [Issue](https://github.com/ttyunDevGroup/tty-ui/issues) 或 [Pull Request](https://github.com/ttyunDevGroup/tty-ui/pulls)
