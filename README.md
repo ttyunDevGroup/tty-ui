@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://at.aotu.io/">
-    <img width="200" src="http://www.ttyun.com/images/index_logo.png">
+    <img width="400" src="http://www.ttyun.com/images/index_logo.png">
   </a>
 </p>
 
@@ -15,9 +15,10 @@
   </a>
 </p>
 <p align="center">
-<a href="https://www.npmjs.com/package/tty-ui"><img src="https://img.shields.io/badge/npm-1.0.1-brightgreen.svg" alt="npm version"></a> 
+<a href="https://www.npmjs.com/package/tty-ui">
+  <img src="https://img.shields.io/badge/npm-0.0.1-brightgreen.svg" alt="npm version"></a> 
   <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
-  <a href="https://www.npmjs.com/package/tty-ui"><img src="https://img.shields.io/badge/licence-MIT-blue.svg"></a> 
+  <img src="https://img.shields.io/badge/licence-MIT-blue.svg"> 
 </p>
 
 ## 特性
